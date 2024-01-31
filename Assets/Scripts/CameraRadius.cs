@@ -9,6 +9,8 @@ public class CameraRadius : MonoBehaviour
     public GameObject targetGroup;
     private CinemachineTargetGroup ctg;
 
+    public Transform cameraMarker;
+
     public float focusDistance = 5f;
 
     // Start is called before the first frame update
@@ -54,6 +56,24 @@ public class CameraRadius : MonoBehaviour
     }
 
     void UpdateFocusPoints() {
+
+        if (ctg.m_Targets.Length > 2) {
+
+            if (ctg.FindMember(cameraMarker) > 0) {
+
+                ctg.RemoveMember(cameraMarker);
+
+            }
+
+        }
+
+        if (ctg.m_Targets.Length <= 1) {
+
+            Debug.Log("attempting to add marker...");
+
+            ctg.AddMember(cameraMarker, 1f, 0f);
+
+        }
 
         for (int i = 0; i < ctg.m_Targets.Length; i++) {
 
